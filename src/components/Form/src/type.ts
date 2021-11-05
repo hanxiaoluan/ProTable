@@ -19,3 +19,8 @@ export type FormSchema = {
 export interface FormatFormSchema extends FormSchema {
 	fieldMapToTime?: [string, string], // daterange的 参数映射
 }
+
+export interface FormActionType {
+	submit: ()=> Promise<void>;
+	getFieldsValue: ()=> Recordable;
+}

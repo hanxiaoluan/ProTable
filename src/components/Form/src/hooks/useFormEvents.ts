@@ -14,11 +14,11 @@ interface UseFormActionContext {
 
 export function useFormEvents({ emit, getProps, formModel, getSchemas }: UseFormActionContext) {
 
-	async function handleSubmit(e: Event): Promise<void> {
+	async function submit(e: Event): Promise<void> {
 		e && e.preventDefault()
 		const { onSubmit } = unref(getProps)
 
-		const values = getFormValues(formModel, getSchemas)
+		const values = getFieldsValue()
 
 		// 如果props里传入的有onSubmit那就取props的onSubmit，否则用@onSubmit这种事件方法进行获取
 		if (onSubmit && isFunction(onSubmit)) {
@@ -28,5 +28,15 @@ export function useFormEvents({ emit, getProps, formModel, getSchemas }: UseForm
 		}
 	}
 
-	return { handleSubmit }
+	// async function setFieldsValue(values: Recordable): Promise<void> {
+
+	// }
+
+	function getFieldsValue(): Recordable {
+		// const formEl = unref()
+
+		return getFormValues(formModel, getSchemas)
+	}
+
+	return { submit, getFieldsValue }
 }

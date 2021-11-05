@@ -1,4 +1,4 @@
-import { PropType } from 'vue'
+import { PropType, ExtractPropTypes } from 'vue'
 import { FormSchema } from './type'
 export const basicProps = {
 	model: {
@@ -37,3 +37,6 @@ export const basicProps = {
 	}
 
 } as const
+
+export type FormProps = ExtractPropTypes<typeof basicProps>
+

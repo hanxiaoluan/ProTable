@@ -1,8 +1,8 @@
 import { defineComponent, PropType, Component } from 'vue'
 import { NFormItem } from 'naive-ui'
-import { componentMap } from '../utils/componentMap'
+import { componentMap } from './utils/componentMap'
 import { pick, omit } from 'lodash-es'
-import type { FormatFormSchema } from '../type'
+import type { FormatFormSchema } from './type'
 import type { FormItemProps } from 'naive-ui'
 
 export default defineComponent({

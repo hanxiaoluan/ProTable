@@ -1,6 +1,6 @@
 import { defineComponent, PropType } from 'vue'
 import { NButton, NFormItem, NSpace } from 'naive-ui'
-import { useContext } from '../utils/useFormContext'
+import { useContext } from './utils/useFormContext'
 import type { ButtonProps } from 'naive-ui'
 
 export default defineComponent({

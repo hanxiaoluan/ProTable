@@ -16,7 +16,7 @@
 // import { NMessageProvider, NNotificationProvider, NDialogProvider } from 'naive-ui'
 // import { defineProps, provide, inject, computed, InjectionKey, Ref } from 'vue'
 // import { useMessage } from 'naive-ui'
-import Demo from './components/Form/Demo.vue'
+import Demo from './components/Form/demos/index.vue'
 </script>
 
 <template>
@@ -31,6 +31,9 @@ import Demo from './components/Form/Demo.vue'
 		</NMessageProvider>
 	</NDialogProvider> -->
 	<Demo />
+	<div class="test">
+		xxx
+	</div>
 </template>
 
 <style>

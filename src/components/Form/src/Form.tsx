@@ -1,22 +1,24 @@
-import { defineComponent, ref, computed, reactive, unref, Ref, ComputedRef } from 'vue'
+import { defineComponent, ref, computed, reactive, unref, Ref, ComputedRef, onMounted } from 'vue'
 import { NForm } from 'naive-ui'
-import { createContext } from '../utils/useFormContext'
+import { createContext } from './utils/useFormContext'
 import { pick, isNumber, isArray } from 'lodash'
 import FormItem from './FormItem'
-import TableFormAction from './TableFormAction'
-import { basicProps } from '../props'
-import { useFormEvents } from '../hooks/useFormEvents'
+import TableFormAction from './FormAction'
+import { basicProps } from './props'
+import { useFormEvents } from './hooks/useFormEvents'
 
-import type { FormSchema, FormatFormSchema } from '../type'
+import type { FormSchema, FormatFormSchema } from './type'
 import type { FormProps } from 'naive-ui'
 
-import '../styles/index.css'
+import style from './styles/index.cssr'
+import useStyle from '../../../hooks/useStyle'
 
 export default defineComponent({
-	name: 'TableForm',
+	name: 'ProTableForm',
 	props: basicProps,
-	emits: ['submit', 'reset'],
+	emits: ['submit', 'reset', 'register'],
 	setup(props, { emit }) {
+		useStyle('Form', style, 'proTable')
 		const formModel = reactive<Record<string, any>>({
 
 		})
@@ -53,14 +55,21 @@ export default defineComponent({
 		const getItemWidth: ComputedRef<string> = computed(() => isNumber(props.itemWidth) ? `${props.itemWidth}px` : props.itemWidth)
 
 		// 获取form表单的一些formEvents事件
-		const { handleSubmit } = useFormEvents({ emit, formModel, getProps, getSchemas })
-		createContext({ resetAction: () => { console.log('reset') }, submitAction: handleSubmit })
+		const { submit, getFieldsValue } = useFormEvents({ emit, formModel, getProps, getSchemas })
+		createContext({ resetAction: () => { console.log('reset') }, submitAction: submit })
+
+		onMounted(() => {
+			emit('register', {
+				submit,
+				getFieldsValue
+			})
+		})
 		return { formElRef, formModel, getProps, getSchemas, getFormProps, getItemWidth }
 	},
 	render() {
 		return (
 			<>
-				<NForm ref='formElRef' model={this.formModel} {...this.getFormProps}>
+				<NForm ref='formElRef' model={this.formModel} {...this.getFormProps} class='pro-table-form'>
 					{
 						unref(this.getSchemas).map(schema => <FormItem schema={schema} model={this.formModel} width={this.getItemWidth}/>)
 					}

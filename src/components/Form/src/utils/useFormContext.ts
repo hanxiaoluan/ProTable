@@ -6,7 +6,8 @@ export interface FormContextProps {
 	resetAction: ()=> Promise<void>;
 	submitAction: ()=> Promise<void>;
 }
-type Context = Record<string, any>
+
+type Context = Recordable
 
 const contextKey: InjectionKey<Context> = Symbol('tableFormContextKey')
 
